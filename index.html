@@ -1,0 +1,578 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Quiet NH Foliage Run</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow reading column; the map is the hero, spots follow as a numbered loop in drive order */
+:root{
+  --bg:#eef0eb; --fg:#1d2a22; --muted:#5d6b62; --line:#c9d0c9;
+  --spruce:#1f4d3a; --maple:#b8432a; --birch:#f9faf7; --avoid:#b8432a; --water:#5b8aa8;
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141c17; --fg:#e7ebe5; --muted:#9aa89e; --line:#2d3a32;
+  --spruce:#7fbf9b; --maple:#e0775e; --birch:#1b2620; --avoid:#e0775e; --water:#7fb0cf; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141c17; --fg:#e7ebe5; --muted:#9aa89e; --line:#2d3a32;
+  --spruce:#7fbf9b; --maple:#e0775e; --birch:#1b2620; --avoid:#e0775e; --water:#7fb0cf; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px;padding-block:40px 64px;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(40px,8vw,60px)}
+h2{font-size:30px}
+h3{font-size:24px}
+p{margin:0;max-width:62ch}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{font-size:19px;color:var(--muted);max-width:56ch}
+header{display:grid;gap:14px}
+.rule{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.rule div{border-top:2px solid var(--spruce);padding-top:10px;font-size:15px}
+.rule b{display:block;font-family:var(--display);font-size:22px;font-weight:400;margin-bottom:4px}
+
+figure{margin:0;display:grid;gap:10px}
+.mapbox{background:var(--birch);border:1px solid var(--line);border-radius:6px;padding:12px;overflow-x:auto}
+svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figcaption{font-size:14px;color:var(--muted);max-width:62ch}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid var(--spruce)}
+.legend i.red{border-top:3px dashed var(--avoid)}
+.legend i.dot{width:10px;height:10px;border-radius:50%;background:var(--maple);border:0}
+
+.spots{display:grid;gap:36px}
+.spot{display:grid;grid-template-columns:48px 1fr;gap:16px}
+.num{font-family:var(--display);font-size:40px;line-height:1;color:var(--maple);padding-top:4px}
+.spot .body{display:grid;gap:10px;min-width:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
+.facts b{color:var(--fg);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.links a{font-size:13px;font-weight:600;color:var(--spruce);border:1px solid var(--line);border-radius:999px;padding:5px 12px;text-decoration:none;background:var(--birch)}
+.links a:hover,.links a:focus-visible{border-color:var(--spruce);outline:none}
+.links a.primary{background:var(--spruce);color:var(--bg);border-color:var(--spruce);font-size:14px;padding:8px 16px}
+.when{font-size:13px;color:var(--maple);font-weight:600}
+
+.plan{display:grid;gap:0;border-top:1px solid var(--line)}
+.plan div{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.plan time{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.pic{font-size:13px;font-weight:600;color:var(--spruce);text-decoration:none;white-space:nowrap;border-bottom:1px solid var(--line)}
+.pic:hover,.pic:focus-visible{border-bottom-color:var(--spruce);outline:none}
+.photo{display:grid;gap:10px}
+.photo ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
+.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:62ch}
+a{color:var(--spruce)}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.tabs button{font:600 14px var(--body);color:var(--muted);background:none;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--fg);background:var(--birch);border-color:var(--line)}
+.tabs button:focus-visible{outline:2px solid var(--spruce);outline-offset:2px}
+.panel{display:grid;gap:36px}
+.panel[hidden]{display:none}
+.verdict{display:grid;gap:10px}
+.verdict .stats{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.verdict .stats b{color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.pick{display:inline-block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--maple)}
+/* dim map spots not in the selected plan */
+.wrap[data-plan="A"] .pin:not(.p1):not(.p2),
+.wrap[data-plan="B"] .pin:not(.p4):not(.p5),
+.wrap[data-plan="C"] .pin:not(.p1):not(.p2):not(.p3):not(.p4){opacity:.22}
+.wrap[data-plan="D"] .pin:not(.p4){opacity:.22}
+.wrap[data-plan="E"] .pin:not(.p10):not(.p11):not(.p12){opacity:.22}
+.wrap[data-plan="F"] .pin:not(.p7){opacity:.22}
+.wrap[data-plan="G"] .pin:not(.p8){opacity:.22}
+.wrap[data-plan="H"] .pin:not(.p5){opacity:.22}
+.wrap[data-plan="I"] .pin:not(.p9){opacity:.22}
+.spot .plan{margin-top:6px}
+.pin{transition:opacity .2s}
+@media (prefers-reduced-motion: reduce){.pin{transition:none}}
+@media (max-width:480px){.spot{grid-template-columns:36px 1fr}.num{font-size:30px}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Back Bay → White Mountains · October 2026</div>
+  <h1>Quiet NH Foliage Run</h1>
+  <p class="lede">A photography day with short hikes and almost no other people. The trick is simple: never touch the Kancamagus or Franconia Notch, and be on a trail before 9am.</p>
+  <div class="rule">
+    <div><b>Weekday</b>Saturday on the Kanc is a parking lot. A Tuesday is empty.</div>
+    <div><b>Skip Oct 10–12</b>Columbus Day weekend is the single worst traffic of the year.</div>
+    <div><b>Leave by 5:30</b>Crowds arrive around 10:30. Early light is better anyway.</div>
+  </div>
+</header>
+
+<figure>
+  <div class="mapbox">
+  <svg viewBox="0 0 720 860" role="img" aria-label="Schematic route map from Back Bay north on I-93 to Jefferson, east on Route 302 through Crawford Notch, down Bear Notch Road to Conway, and home via Route 16. The Kancamagus Highway is marked as the stretch to avoid. Side trips to Sandwich Notch, Foss Mountain and Pitcher Mountain are marked.">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+    </defs>
+    <!-- compass -->
+    <g font-family="Figtree,system-ui,sans-serif" font-size="12" fill="currentColor">
+      <line x1="660" y1="70" x2="660" y2="30" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="660" y="86" text-anchor="middle">N</text>
+    </g>
+    <!-- state line -->
+    <line x1="60" y1="690" x2="660" y2="690" stroke="currentColor" stroke-opacity=".3" stroke-width="1" stroke-dasharray="2 6"/>
+    <text x="64" y="684" font-family="Figtree,system-ui,sans-serif" font-size="11" fill="currentColor" fill-opacity=".6">NEW HAMPSHIRE</text>
+    <text x="64" y="706" font-family="Figtree,system-ui,sans-serif" font-size="11" fill="currentColor" fill-opacity=".6">MASSACHUSETTS</text>
+
+    <!-- main loop: green solid -->
+    <g fill="none" stroke="var(--spruce)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <!-- I-93 north -->
+      <path d="M360 790 L345 700 L330 620 L320 540 L300 420 L290 340 L280 290 L250 240"/>
+      <!-- Littleton -> Jefferson -->
+      <path d="M250 240 L290 205 L340 190"/>
+      <!-- Jefferson -> Bretton Woods -> Crawford Notch -> Bartlett -->
+      <path d="M340 190 L365 230 L390 285 L430 320"/>
+      <!-- Bear Notch Road -->
+      <path d="M430 320 L440 350 L468 362"/>
+      <!-- Conway -> Rt 16 south -> Boston -->
+      <path d="M468 362 L480 450 L480 560 L450 640 L400 720 L360 790"/>
+    </g>
+    <!-- side trips: thinner green -->
+    <g fill="none" stroke="var(--spruce)" stroke-width="2.5" stroke-dasharray="6 5" stroke-linecap="round">
+      <path d="M300 420 L350 405 L392 412"/>                 <!-- Sandwich Notch Rd -->
+      <path d="M480 450 L512 445"/>                          <!-- Rt 153 to Eaton / Foss -->
+      <path d="M320 540 L250 555 L190 565"/>                 <!-- Rt 9 west to Stoddard -->
+      <path d="M468 362 L470 335"/>                          <!-- N Conway -->
+      <path d="M320 540 L285 515 L250 500"/>                 <!-- I-89 to Warner / Kearsarge -->
+      <path d="M306 475 L250 445"/>                          <!-- exit 23 to Newfound Lake -->
+      <path d="M392 412 L440 432"/>                          <!-- Center Sandwich to Red Hill -->
+      <path d="M330 620 L230 640"/>                          <!-- Rt 101 to Peterborough -->
+      <path d="M360 790 L240 752"/>                          <!-- Rt 2 to Wachusett -->
+      <path d="M360 790 L300 748"/>                          <!-- Rt 2 to Concord MA -->
+    </g>
+    <!-- Kancamagus: avoid -->
+    <path d="M290 340 L370 352 L468 362" fill="none" stroke="var(--avoid)" stroke-width="4" stroke-dasharray="8 7" stroke-linecap="round"/>
+    <text x="372" y="378" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="var(--avoid)" text-anchor="middle">Kancamagus Hwy · AVOID</text>
+    <!-- Franconia Notch avoid tag -->
+    <text x="266" y="296" font-family="Figtree,system-ui,sans-serif" font-size="11" fill="var(--avoid)" text-anchor="end">Franconia Notch (crowded, drive through)</text>
+
+    <!-- Towns -->
+    <g font-family="Figtree,system-ui,sans-serif" font-size="12" fill="currentColor">
+      <circle cx="360" cy="790" r="6" fill="currentColor"/><text x="372" y="794" font-weight="600">Back Bay, Boston</text>
+      <circle cx="330" cy="620" r="3.5" fill="currentColor"/><text x="340" y="624">Manchester</text>
+      <circle cx="320" cy="540" r="3.5" fill="currentColor"/><text x="330" y="544">Concord</text>
+      <circle cx="300" cy="420" r="3.5" fill="currentColor"/><text x="262" y="424" text-anchor="end">Plymouth · exit 28</text>
+      <circle cx="290" cy="340" r="3.5" fill="currentColor"/><text x="280" y="344" text-anchor="end">Lincoln</text>
+      <circle cx="250" cy="240" r="3.5" fill="currentColor"/><text x="240" y="244" text-anchor="end">Littleton</text>
+      <circle cx="365" cy="230" r="3.5" fill="currentColor"/><text x="375" y="226">Bretton Woods</text>
+      <circle cx="430" cy="320" r="3.5" fill="currentColor"/><text x="440" y="316">Bartlett</text>
+      <circle cx="470" cy="335" r="3.5" fill="currentColor"/><text x="480" y="339">North Conway</text>
+      <circle cx="468" cy="362" r="3.5" fill="currentColor"/><text x="478" y="372">Conway</text>
+      <circle cx="480" cy="560" r="3.5" fill="currentColor"/><text x="490" y="564">Rochester</text>
+      <text x="300" y="470" font-size="11" fill="currentColor" fill-opacity=".7" text-anchor="end">I-93</text>
+      <text x="492" y="510" font-size="11" fill="currentColor" fill-opacity=".7">Rt 16</text>
+      <text x="400" y="258" font-size="11" fill="currentColor" fill-opacity=".7">Rt 302 · Crawford Notch</text>
+      <text x="452" y="340" font-size="11" fill="currentColor" fill-opacity=".7" text-anchor="end">Bear Notch Rd</text>
+    </g>
+
+    <!-- Photo spots: maple dots with numbers -->
+    <g font-family="Instrument Serif,Georgia,serif" font-size="15" text-anchor="middle">
+      <g class="pin p1"><circle cx="340" cy="190" r="12" fill="var(--maple)"/><text x="340" y="195" fill="var(--bg)">1</text>
+      <text x="356" y="178" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Pondicherry · Cherry Pond</text></g>
+      <g class="pin p2"><circle cx="390" cy="285" r="12" fill="var(--maple)"/><text x="390" y="290" fill="var(--bg)">2</text>
+      <text x="406" y="289" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Crawford Notch pull-offs</text></g>
+      <g class="pin p3"><circle cx="440" cy="350" r="12" fill="var(--maple)"/><text x="440" y="355" fill="var(--bg)">3</text></g>
+      <g class="pin p4"><circle cx="512" cy="445" r="12" fill="var(--maple)"/><text x="512" y="450" fill="var(--bg)">4</text>
+      <text x="528" y="449" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Foss Mountain · Eaton</text></g>
+      <g class="pin p5"><circle cx="392" cy="412" r="12" fill="var(--maple)"/><text x="392" y="417" fill="var(--bg)">5</text>
+      <text x="408" y="416" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Sandwich Notch Rd · Beede Falls</text></g>
+      <g class="pin p6"><circle cx="190" cy="565" r="12" fill="var(--maple)"/><text x="190" y="570" fill="var(--bg)">6</text>
+      <text x="190" y="592" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor">Pitcher Mtn · Stoddard</text></g>
+      <!-- short-drive spots, tabs E–I -->
+      <g class="pin p7"><circle cx="250" cy="500" r="12" fill="var(--maple)"/><text x="250" y="505" fill="var(--bg)">7</text>
+      <text x="234" y="504" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Mt Kearsarge · Warner</text></g>
+      <g class="pin p8"><circle cx="440" cy="432" r="12" fill="var(--maple)"/><text x="440" y="437" fill="var(--bg)">8</text>
+      <text x="456" y="436" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Red Hill · Moultonborough</text></g>
+      <g class="pin p9"><circle cx="250" cy="445" r="12" fill="var(--maple)"/><text x="250" y="450" fill="var(--bg)">9</text>
+      <text x="234" y="449" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Newfound Lake · Sculptured Rocks</text></g>
+      <g class="pin p12"><circle cx="230" cy="640" r="12" fill="var(--maple)"/><text x="230" y="644" font-size="11" fill="var(--bg)">E2</text>
+      <text x="214" y="644" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Pack Monadnock · Peterborough</text></g>
+      <g class="pin p10"><circle cx="240" cy="752" r="12" fill="var(--maple)"/><text x="240" y="756" font-size="11" fill="var(--bg)">E1</text>
+      <text x="224" y="756" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Wachusett · Harvard</text></g>
+      <g class="pin p11"><circle cx="300" cy="748" r="12" fill="var(--maple)"/><text x="300" y="752" font-size="11" fill="var(--bg)">E3</text>
+      <text x="300" y="733" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="middle">Walden · Concord</text></g>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span><i></i>Main loop (about 330 miles)</span>
+    <span><i style="border-top-style:dashed;border-top-width:2px"></i>Side trip</span>
+    <span><i class="red"></i>Skip this road</span>
+    <span><i class="dot"></i>Photo stop</span>
+  </div>
+  <figcaption>Schematic, not to scale. Pick a plan below and the map highlights only that plan's stops. 1–6 are the White Mountain spots; 7–9 and E1–E3 are the shorter days.</figcaption>
+</figure>
+
+<div class="tabs" role="tablist" aria-label="Plans">
+  <button role="tab" id="tab-all" aria-selected="true" aria-controls="panel-all" data-plan="all">All spots</button>
+  <button role="tab" id="tab-A" aria-selected="false" aria-controls="panel-A" data-plan="A">A · Big-view day</button>
+  <button role="tab" id="tab-B" aria-selected="false" aria-controls="panel-B" data-plan="B">B · Short-drive day</button>
+  <button role="tab" id="tab-C" aria-selected="false" aria-controls="panel-C" data-plan="C">C · Overnight</button>
+  <button role="tab" id="tab-D" aria-selected="false" aria-controls="panel-D" data-plan="D">D · Eaton only (your route)</button>
+  <button role="tab" id="tab-E" aria-selected="false" aria-controls="panel-E" data-plan="E">E · Under 3h driving</button>
+  <button role="tab" id="tab-F" aria-selected="false" aria-controls="panel-F" data-plan="F">F · Kearsarge</button>
+  <button role="tab" id="tab-G" aria-selected="false" aria-controls="panel-G" data-plan="G">G · Red Hill</button>
+  <button role="tab" id="tab-H" aria-selected="false" aria-controls="panel-H" data-plan="H">H · Sandwich Notch only</button>
+  <button role="tab" id="tab-I" aria-selected="false" aria-controls="panel-I" data-plan="I">I · Newfound Lake</button>
+</div>
+
+<section class="panel" id="panel-F" role="tabpanel" aria-labelledby="tab-F" hidden>
+  <div class="verdict">
+    <span class="pick">My pick for this Saturday</span>
+    <h2>Mount Kearsarge: the most color you can reach in under two hours</h2>
+    <p>A toll road through Rollins State Park takes you to within half a mile of the summit, then a 15-minute rocky walk to a bare 360° top with a fire tower. At 2,937 ft it's the highest thing within two hours of Boston, so it turns first. Views to the Whites, Monadnock and Vermont. Arrive when the road opens and you'll have the summit nearly to yourselves for an hour.</p>
+    <div class="stats"><span><b>~3h 10</b> driving total</span><span><b>1h 35</b> each way</span><span><b>15 min</b> walk to summit</span><span><b>Home ~5pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Rollins+State+Park%2C+Warner%2C+NH%7CWarner%2C+NH%7CBement+Covered+Bridge%2C+Bradford%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>7:15</time><span>Leave Back Bay. I-93 north to Concord, then I-89 west to exit 9, Warner. Easy drive, no traffic trouble on this corridor.</span></div>
+    <div><time>8:50</time><span>Rollins State Park gate (Kearsarge Mountain Road, Warner). The auto road opens around 9 in fall; be in line. Small per-person fee at the gate. <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Rollins+State+Park%2C+Warner%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>9:15</time><span>Drive the 3.5-mile road up. Pull-offs on the way with views south; the best are near the top.</span></div>
+    <div><time>9:30</time><span>Park at the upper lot. 0.5 mile, 15–20 minutes over rock slabs to the summit. Fire tower, 360° view, morning light coming from the east over the Lakes Region. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Mount+Kearsarge+summit+Rollins+State+Park+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>11:00</time><span>Back down. Lunch in Warner village (Foothills Restaurant, or Schoodacs coffee). Small main street, worth a few frames. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Warner+NH+main+street+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>12:30</time><span>15 minutes west on Route 103 to Bradford for the Bement covered bridge, then back. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Bement+Covered+Bridge+Bradford+NH+fall" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Bement+Covered+Bridge%2C+Bradford%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>14:00</time><span>Optional: the Winslow side. Drive around to Winslow State Park (Wilmot) for the north-facing picnic area view toward the Whites. Adds 45 min. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Winslow+State+Park+Wilmot+NH+fall+view" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>15:30</time><span>Home. I-89 → I-93. Back Bay by 5, dinner in town.</span></div>
+  </div>
+  <p class="note">The summit is bare granite with real wind. 65° in Warner is 50° up top. The road closes if it's icy, which won't be an issue this weekend.</p>
+</section>
+
+<section class="panel" id="panel-G" role="tabpanel" aria-labelledby="tab-G" hidden>
+  <div class="verdict">
+    <h2>Red Hill fire tower, then lunch on Squam</h2>
+    <p>A 1.7-mile hike, about an hour up, to a fire tower looking over Winnipesaukee, Squam and the Ossipee range. It's the quiet neighbor of West Rattlesnake, which is where everyone else goes. Lunch at the Corner House in Center Sandwich, then the Squam Lake shoreline on the way out. This is tab B's lunch stop with a better hike and without the long leg east to Foss.</p>
+    <div class="stats"><span><b>~4h</b> driving total</span><span><b>2h</b> each way</span><span><b>1.7 mi</b> up, ~1,000 ft</span><span><b>Home ~6pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Red+Hill+Trailhead%2C+Bean+Rd%2C+Moultonborough%2C+NH%7CThe+Corner+House%2C+Center+Sandwich%2C+NH%7CHolderness%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>7:30</time><span>Leave Back Bay. I-93 to exit 23 (New Hampton), then Route 104 → 25 east to Moultonborough. Lighter traffic than the Route 16 side.</span></div>
+    <div><time>9:30</time><span>Red Hill trailhead on Bean Road, Moultonborough. Small lot; early arrival matters on a sunny Saturday. <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Red+Hill+Trail%2C+Bean+Rd%2C+Moultonborough%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>9:45</time><span>Up the fire warden's trail. Steady, not steep. The tower at the top is open to climb; from the deck you see three lakes at once. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Red+Hill+fire+tower+Moultonborough+NH+fall+foliage+view" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>12:00</time><span>Down. 15 minutes to Center Sandwich. Lunch at the Corner House Inn; the village green and the white church are right there. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Center+Sandwich+NH+village+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>14:00</time><span>Route 113 west along Squam. Stop at the Squam Lake overlook on Route 113 near Holderness, then the town docks for a reflection shot across the water. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Squam+Lake+Holderness+NH+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>15:30</time><span>I-93 south from exit 24. Back Bay by 6 on a normal Saturday, later if Franconia-bound traffic is heading home at the same time; leaving before 4 helps.</span></div>
+  </div>
+  <p class="note">If the Red Hill lot is full, West Rattlesnake (Route 113, Holderness) is the backup: shorter and busier, but the view over Squam is the famous one.</p>
+</section>
+
+<section class="panel" id="panel-H" role="tabpanel" aria-labelledby="tab-H" hidden>
+  <div class="verdict">
+    <h2>Sandwich Notch Road and Beede Falls, nothing else</h2>
+    <p>Tab B without the Foss leg. A one-lane dirt road through old forest and stone walls, a 15-minute walk to a wide, low waterfall, and lunch in Center Sandwich. Everything is in the trees, so it doesn't depend on the summit color being at peak. Best if you want slow wandering and close frames rather than a view.</p>
+    <div class="stats"><span><b>~4h 20</b> driving total</span><span><b>2h 10</b> each way</span><span><b>15 min</b> walk</span><span><b>Home ~6pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Sandwich+Notch+Rd%2C+Thornton%2C+NH%7CMead+Conservation+Center%2C+Sandwich+Notch+Rd%2C+Sandwich%2C+NH%7CThe+Corner+House%2C+Center+Sandwich%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>8:00</time><span>Leave Back Bay. I-93 to exit 28, Campton. The light under the canopy is good all morning, so no dawn start.</span></div>
+    <div><time>10:10</time><span>Sandwich Notch Road from the Thornton end. Slow. Stone walls, old cellar holes, a beaver pond about halfway. Stop whenever the light hits the road. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Sandwich+Notch+Road+NH+fall+foliage+dirt+road" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>11:30</time><span>Mead Base at the Center Sandwich end. Park, walk 15 minutes to Beede Falls. Slow shutter on the water, leaves on the wet granite. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Beede+Falls+Sandwich+NH+autumn" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Mead+Conservation+Center%2C+Sandwich%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>13:00</time><span>Lunch in Center Sandwich at the Corner House. Walk the village after. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Corner+House+Inn+Center+Sandwich+NH" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>14:30</time><span>Drive Route 113 west along Squam to Holderness, then I-93 south from exit 24. Stop at the Squam overlook if the light is good.</span></div>
+    <div><time>17:45</time><span>Back Bay.</span></div>
+  </div>
+  <p class="note">The notch road is rough but fine in any car at 15 mph. Nobody drives it fast, which is the point.</p>
+</section>
+
+<section class="panel" id="panel-I" role="tabpanel" aria-labelledby="tab-I" hidden>
+  <div class="verdict">
+    <h2>Sculptured Rocks and Newfound Lake</h2>
+    <p>A narrow granite gorge with glacial potholes and a swimming hole, ten minutes from Wellington State Park's beach on Newfound Lake, one of the clearest lakes in the state. Very few people. Water and rock, small scenes, not vistas. Pair it with the Hebron village common and Grafton Pond for stillness.</p>
+    <div class="stats"><span><b>~4h</b> driving total</span><span><b>2h</b> each way</span><span><b>Flat walks</b> only</span><span><b>Home ~6pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Sculptured+Rocks+Natural+Area%2C+Groton%2C+NH%7CWellington+State+Park%2C+Bristol%2C+NH%7CHebron%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>8:00</time><span>Leave Back Bay. I-93 to exit 23, then Route 104 → 3A north along the west shore of Newfound Lake.</span></div>
+    <div><time>10:00</time><span>Sculptured Rocks, Groton. Park at the small lot, walk down to the gorge. Bridges over the narrows give you the potholes from above; scramble down for the water-level shots. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Sculptured+Rocks+Groton+NH+fall" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Sculptured+Rocks+Natural+Area%2C+Groton%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>11:30</time><span>Hebron village common, five minutes away. White church, bandstand, the kind of scene nobody else stops for. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Hebron+NH+village+common+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>12:15</time><span>Wellington State Park. Picnic lunch on the beach (bring it; Bristol has a market on the way). The lake is clear enough to shoot the bottom through the water. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Wellington+State+Park+Newfound+Lake+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>14:00</time><span>Optional: Grafton Pond, 20 minutes west. Undeveloped shoreline, loons, still water for reflections. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Grafton+Pond+NH+fall+reflection" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>15:30</time><span>Home via Route 3A → I-93. Back Bay by 6.</span></div>
+  </div>
+  <p class="note">The gorge rock is slick when wet. Dry this weekend, so fine, but wear shoes with grip and keep the camera strap on.</p>
+</section>
+
+<section class="panel" id="panel-D" role="tabpanel" aria-labelledby="tab-D" hidden>
+  <div class="verdict">
+    <span class="pick">Your trimmed route, with stops added</span>
+    <h2>Up Route 16, back down Route 16, and everything worth a frame in between</h2>
+    <p>Your Back Bay → Eaton → Foss → Back Bay route is 4h 41 of driving. The good news is Route 153, the last 25 miles into Eaton, is a state scenic byway with two postcard villages on it, and you drive it anyway. Chocorua Lake is the one detour worth the extra 40 minutes; skip it if you want to stay at your original time.</p>
+    <div class="stats"><span><b>4h 41</b> your route · <b>~5h 20</b> with Chocorua</span><span><b>1</b> hike + 4 roadside stops</span><span><b>Home ~8pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Freedom%2C+NH%7CMadison+Boulder+Natural+Area%2C+Madison%2C+NH%7CLittle+White+Church%2C+Eaton%2C+NH%7CConway%2C+NH%7CChocorua+Lake%2C+Tamworth%2C+NH%7CFoss+Mountain+Rd%2C+Eaton%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+      <a href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Freedom%2C+NH%7CMadison+Boulder+Natural+Area%2C+Madison%2C+NH%7CLittle+White+Church%2C+Eaton%2C+NH%7CFoss+Mountain+Rd%2C+Eaton%2C+NH" target="_blank" rel="noopener">Without Chocorua ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>7:30</time><span>Leave Back Bay. I-95 north, Spaulding Turnpike (Route 16) through Dover and Rochester. Nothing to shoot until Wakefield; just drive.</span></div>
+    <div><time>9:30</time><span>Route 153 starts at Wakefield. Province Lake on your right with Green Mountain behind it, then Effingham's hilltop meetinghouse. Pull-offs, not hikes. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Province+Lake+Effingham+NH+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>10:15</time><span>Freedom village. White church, old general store, the river under the bridge. One of the prettiest villages in NH and nobody stops. 15 minutes on foot. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Freedom+NH+village+fall+foliage" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Freedom+Village+Store%2C+Freedom%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>10:45</time><span>Madison Boulder. Five minutes off 153 on Route 113. An 83-foot glacial erratic in the woods, bigger than a house. Put one of you next to it for scale. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Madison+Boulder+NH+autumn" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Madison+Boulder+Natural+Area%2C+Madison%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>11:15</time><span>Little White Church on Crystal Lake, Eaton. Shoot it from across the lake on Route 153; the reflection is best before the wind picks up at midday. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Little+White+Church+Eaton+NH+Crystal+Lake+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>12:00</time><span>Lunch in Conway village, 15 minutes north. On the way out, the Swift River covered bridge is right in town. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Swift+River+covered+bridge+Conway+NH+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>13:30</time><span>Optional: Chocorua Lake, 15 minutes south on Route 16. The classic Mount Chocorua reflection from the pull-off on Chocorua Lake Road. Popular, but it's a two-minute stop, not a hike. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Chocorua+Lake+reflection+fall+foliage" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Chocorua+Lake+Rd%2C+Tamworth%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>15:00</time><span>Back to Eaton via Route 113, then Foss Mountain Road to the trailhead. 20 minutes up through the blueberry fields. Stay on top until the light goes warm, around 4:30. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Foss+Mountain+Eaton+NH+fall+blueberry+sunset" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Foss+Mountain+Rd%2C+Eaton%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+    <div><time>17:00</time><span>Down and home. Route 153 south → 16 → Spaulding → I-95. Dinner stop in Portsmouth if you want to break it up (about halfway).</span></div>
+    <div><time>20:00</time><span>Back Bay.</span></div>
+  </div>
+  <p class="note">If you'd rather have Foss at true golden hour, swap the order: Chocorua after lunch, then Foss at 4:00, down by 5:45, home around 9. Same miles, later night.</p>
+</section>
+
+<section class="panel" id="panel-E" role="tabpanel" aria-labelledby="tab-E" hidden>
+  <div class="verdict">
+    <h2>Three short days, all under three hours of total driving</h2>
+    <p>None of these touch New Hampshire's big mountains, so they peak later, roughly Oct 12–25. Pick by what you want to shoot: a hilltop view, old farms and stone walls, or water and woods close to home.</p>
+  </div>
+
+  <article class="spot">
+    <div class="num">E1</div>
+    <div class="body">
+      <h3>Wachusett summit + Harvard orchards</h3>
+      <div class="facts"><span><b>~2h 30</b> driving</span><span><b>1h 10</b> each way</span><span><b>Peak Oct 12–22</b></span></div>
+      <p>Drive the auto road to the top of Mount Wachusett (or the 30-minute hike from the midway lot) for a view from Boston's skyline to Monadnock. Then back east to Harvard, MA: Fruitlands Museum has a hillside lawn looking over the whole Nashua valley, and Carlson Orchards next door has cider donuts. Finish on Harvard's town common.</p>
+      <div class="plan">
+        <div><time>9:00</time><span>Leave Back Bay, Route 2 west.</span></div>
+        <div><time>10:15</time><span>Wachusett Mountain State Reservation. Summit road or the Pine Hill trail. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Mount+Wachusett+summit+fall+foliage+view" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>12:30</time><span>Fruitlands Museum, Harvard. Lunch at the café, then the lawn and the view. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Fruitlands+Museum+Harvard+MA+fall+view" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>14:30</time><span>Carlson Orchards, then Harvard common. Home by 4:30.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Wachusett+Mountain+State+Reservation%2C+Princeton%2C+MA%7CFruitlands+Museum%2C+Harvard%2C+MA%7CCarlson+Orchards%2C+Harvard%2C+MA" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">E2</div>
+    <div class="body">
+      <h3>Pack Monadnock + Dublin Lake</h3>
+      <div class="facts"><span><b>~3h</b> driving</span><span><b>1h 25</b> each way</span><span><b>Peak Oct 12–22</b></span></div>
+      <p>The closest proper NH summit to Boston. Miller State Park has an auto road to the top of Pack Monadnock, or a 40-minute trail, with Mount Monadnock filling the view west. Then 20 minutes to Dublin Lake, where Monadnock reflects in the water from the pull-off on Route 101. Peterborough for lunch and a walk.</p>
+      <div class="plan">
+        <div><time>8:30</time><span>Leave Back Bay, Route 3 → 101 west.</span></div>
+        <div><time>10:00</time><span>Miller State Park, Peterborough. Summit road or Wapack Trail. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Pack+Monadnock+Miller+State+Park+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>12:00</time><span>Lunch in Peterborough. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Peterborough+NH+downtown+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>13:30</time><span>Dublin Lake, Route 101. Monadnock reflection from the roadside. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Dublin+Lake+Monadnock+reflection+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>14:30</time><span>Home. Back by 4:00.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Miller+State+Park%2C+Peterborough%2C+NH%7CPeterborough%2C+NH%7CDublin+Lake%2C+Dublin%2C+NH" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">E3</div>
+    <div class="body">
+      <h3>Walden Pond + Great Brook Farm</h3>
+      <div class="facts"><span><b>~1h 30</b> driving</span><span><b>30 min</b> each way</span><span><b>Peak Oct 15–25</b></span></div>
+      <p>The lazy one, and still a real photo day. Walden Pond's shoreline loop is 1.7 miles of maples over clear water. Concord's Old North Bridge and the Minute Man trail are five minutes away. Great Brook Farm in Carlisle has working barns, stone walls, cornfields and an ice cream stand. Go on a weekday; Walden fills on weekends.</p>
+      <div class="plan">
+        <div><time>9:00</time><span>Leave Back Bay, Route 2 west.</span></div>
+        <div><time>9:30</time><span>Walden Pond. Walk the loop, shoot the far shore from the beach end. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Walden+Pond+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>11:30</time><span>Old North Bridge, Concord. Then lunch in Concord center. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Old+North+Bridge+Concord+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>13:30</time><span>Great Brook Farm State Park, Carlisle. Barns, walls, the pond trail. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Great+Brook+Farm+Carlisle+MA+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>15:30</time><span>Home. Back by 4:00.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Walden+Pond+State+Reservation%2C+Concord%2C+MA%7COld+North+Bridge%2C+Concord%2C+MA%7CGreat+Brook+Farm+State+Park%2C+Carlisle%2C+MA" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+  
+</section>
+
+<section class="panel" id="panel-A" role="tabpanel" aria-labelledby="tab-A" hidden>
+  <div class="verdict">
+    <span class="pick">My pick</span>
+    <h2>One real hike, one slow scenic drive, home by dinner</h2>
+    <p>Pondicherry in morning light, breakfast in Littleton, then Route 302 through Crawford Notch with the windows down. Skip Bear Notch and Foss. It's the fewest miles for the biggest views, and it still feels like a date instead of a logistics exercise.</p>
+    <div class="stats"><span><b>~5h 45</b> driving total</span><span><b>1</b> hike (3 mi flat)</span><span><b>Spots 1 → 2</b></span><span><b>Home ~5pm</b></span></div>
+  </div>
+  <div class="plan">
+    <div><time>5:30</time><span>Leave Back Bay on I-93 north. Empty at this hour.</span></div>
+    <div><time>8:30</time><span>Pondicherry. Walk the rail bed to Cherry Pond, shoot while the fog lifts off the water.</span></div>
+    <div><time>10:30</time><span>Back to the car. 20 min to Littleton Diner for a late breakfast.</span></div>
+    <div><time>12:00</time><span>Route 302 east: Bretton Woods, the hotel with the range behind it, then down through Crawford Notch. Stop at every pull-off that looks good.</span></div>
+    <div><time>13:30</time><span>At the bottom of the notch, turn around. Go back up 302 and take I-93 home via Franconia (drive through, don't stop).</span></div>
+    <div><time>17:00</time><span>Back in Back Bay. Early dinner somewhere nice; you've earned it.</span></div>
+  </div>
+  <p class="note">Why not loop home through Conway? It adds 45 minutes and puts you on Route 16 at the busiest time. Going back the way you came is quicker on a weekday.</p>
+</section>
+
+<section class="panel" id="panel-B" role="tabpanel" aria-labelledby="tab-B" hidden>
+  <div class="verdict">
+    <h2>Less highway, two short walks, in-the-trees shooting</h2>
+    <p>Sandwich Notch Road is a dirt road through old forest with stone walls and no cars. Beede Falls is a 15 minute walk. Lunch in Center Sandwich or Holderness, then an hour east to Foss Mountain for golden hour. Smaller scenes, closer frames, a lot less time in the car.</p>
+    <div class="stats"><span><b>~5h 15</b> driving total</span><span><b>2</b> short walks</span><span><b>Spots 5 → 4</b></span><span><b>Home ~9pm</b></span></div>
+    <div class="links">
+      <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Sandwich+Notch+Rd%2C+Thornton%2C+NH%7CMead+Conservation+Center%2C+Sandwich+Notch+Rd%2C+Sandwich%2C+NH%7CCorner+House+Inn%2C+Center+Sandwich%2C+NH%7CLittle+White+Church%2C+Eaton%2C+NH%7CFoss+Mountain+Rd%2C+Eaton%2C+NH%7CNorth+Conway%2C+NH" target="_blank" rel="noopener">Open full day in Google Maps ↗</a>
+    </div>
+  </div>
+  <div class="plan">
+    <div><time>7:30</time><span>Leave Back Bay. No need for the 5:30 start; the forest light is good all morning. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Back+Bay+Boston+early+morning+Commonwealth+Avenue+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+    <div><time>9:45</time><span>I-93 exit 28, into Sandwich Notch Road from the Thornton end. Drive it slowly, stop wherever the light hits. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Sandwich+Notch+Road+NH+fall+foliage+dirt+road" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Sandwich+Notch+Rd%2C+Thornton%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+    <div><time>11:00</time><span>Beede Falls trailhead (Mead Base). 15 min walk to the falls, shoot the water and the leaves on wet rock. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Beede+Falls+Sandwich+NH+autumn" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Sandwich+Notch+Rd%2C+Thornton%2C+NH&destination=Mead+Conservation+Center%2C+Sandwich+Notch+Rd%2C+Sandwich%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+    <div><time>12:30</time><span>Lunch in Center Sandwich (Corner House Inn) or Holderness on Squam Lake. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Corner+House+Inn+Center+Sandwich+NH" target="_blank" rel="noopener">Corner House ↗</a> <a class="pic" href="https://www.google.com/search?tbm=isch&q=Holderness+NH+Squam+Lake+fall+foliage" target="_blank" rel="noopener">Squam Lake ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Mead+Conservation+Center%2C+Sandwich%2C+NH&destination=Corner+House+Inn%2C+Center+Sandwich%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+    <div><time>14:00</time><span>Route 25 → 16 → 153 east to Eaton. About an hour. Stop at Eaton village for the white church and covered bridge on the lake. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Eaton+NH+Little+White+Church+Crystal+Lake+fall" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Corner+House+Inn%2C+Center+Sandwich%2C+NH&destination=Little+White+Church%2C+Eaton%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+    <div><time>16:00</time><span>Foss Mountain. 20 min up through the blueberry fields. Golden hour on the summit, sunset ~6:10 early October. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Foss+Mountain+Eaton+NH+fall+blueberry+sunset" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Little+White+Church%2C+Eaton%2C+NH&destination=Foss+Mountain+Rd%2C+Eaton%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+    <div><time>18:30</time><span>Dinner in Conway or North Conway, then Route 16 → Spaulding Turnpike → I-95 home. <a class="pic" href="https://www.google.com/search?tbm=isch&q=North+Conway+NH+village+fall+evening" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/dir/?api=1&origin=Foss+Mountain+Rd%2C+Eaton%2C+NH&destination=Back+Bay%2C+Boston%2C+MA&waypoints=North+Conway%2C+NH&travelmode=driving" target="_blank" rel="noopener">Directions ↗</a></span></div>
+  </div>
+  <p class="note">Sandwich Notch Road is rough. Fine in any car if you go slow, but not something to rush. Check it hasn't closed for the season (usually mid-November).</p>
+</section>
+
+<section class="panel" id="panel-C" role="tabpanel" aria-labelledby="tab-C" hidden>
+  <div class="verdict">
+    <h2>The whole loop, split over two days, with a real sunrise and a real sunset</h2>
+    <p>Stay in Jackson or North Conway. Day one is a lazy drive up with Crawford Notch and Bear Notch Road in afternoon light. Day two starts at Pondicherry for sunrise and ends on Foss Mountain at golden hour. No 5:30am alarm, no 9pm drive home, and you get the two best light windows of the trip.</p>
+    <div class="stats"><span><b>~7h</b> driving over 2 days</span><span><b>2</b> hikes + scenic roads</span><span><b>Spots 1 → 4</b></span><span><b>1 night</b> Jackson or N. Conway</span></div>
+  </div>
+  <div class="plan">
+    <div><time>Day 1 · 9:00</time><span>Leave Back Bay, no rush. I-93 to Lincoln, then Route 3 / 302 through Franconia and Bretton Woods.</span></div>
+    <div><time>13:00</time><span>Lunch at Bretton Woods or Twin Mountain, then Crawford Notch pull-offs in afternoon light.</span></div>
+    <div><time>15:30</time><span>Bear Notch Road from Bartlett, slow, overlooks facing west into the low sun.</span></div>
+    <div><time>17:30</time><span>Check in. Jackson for quiet and the covered bridge; North Conway for more dinner choices.</span></div>
+    <div><time>Day 2 · 5:30</time><span>Up and out. 50 min north to Pondicherry for sunrise over Cherry Pond (sunrise ~6:50).</span></div>
+    <div><time>9:30</time><span>Breakfast in Littleton or Gorham. Slow morning.</span></div>
+    <div><time>12:00</time><span>Back to Conway via Route 302 again (the light is different from the other direction) or via Route 2 / 16 through Pinkham Notch for a new road.</span></div>
+    <div><time>15:30</time><span>Foss Mountain for golden hour. Then Route 16 home, back in Back Bay around 9pm.</span></div>
+  </div>
+  <p class="note">Book the room now if you're going mid-October. Jackson and North Conway fill up weeks ahead for foliage season, especially Oct 9–12.</p>
+</section>
+
+<section class="panel" id="panel-all" role="tabpanel" aria-labelledby="tab-all">
+<section class="spots">
+  <div class="eyebrow">The spots, in drive order</div>
+
+  <article class="spot">
+    <div class="num">1</div>
+    <div class="body">
+      <h3>Pondicherry Wildlife Refuge, Jefferson</h3>
+      <div class="facts"><span><b>3h 00</b> from Back Bay</span><span><b>1.5 mi</b> flat, each way</span><span><b>Sunrise</b> is the shot</span></div>
+      <p>An old rail bed walks you to Cherry Pond, where the whole Presidential Range sits reflected in still water. On a cold clear morning there is fog on the pond until about 8:30. Almost nobody comes because there's no summit, and it's north of the Whites, so you never touch Kanc traffic.</p>
+      <p class="when">Peak color: late Sept – ~Oct 8 this year (the north is turning now).</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Cherry%20Pond%20Pondicherry%20New%20Hampshire&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Cherry+Pond+Pondicherry+Jefferson+NH+foliage" target="_blank" rel="noopener">Google Images</a>
+        <a href="https://www.alltrails.com/trail/us/new-hampshire/pondicherry-rail-trail" target="_blank" rel="noopener">AllTrails</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">2</div>
+    <div class="body">
+      <h3>Route 302 through Crawford Notch</h3>
+      <div class="facts"><span><b>35 min</b> from Pondicherry</span><span><b>Pull-offs</b>, no hike needed</span><span><b>Midday</b> is fine here</span></div>
+      <p>Drive it slowly. Mount Washington Hotel with the range behind it, the Willey House site, Silver and Flume Cascades right at the roadside, and the long view down the notch from the top. Traffic moves here even on busy days because nobody is parking.</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Crawford%20Notch%20autumn&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Crawford+Notch+route+302+fall+foliage" target="_blank" rel="noopener">Google Images</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">3</div>
+    <div class="body">
+      <h3>Bear Notch Road, Bartlett → Conway</h3>
+      <div class="facts"><span><b>9 mi</b> of road</span><span><b>Late afternoon</b> light</span><span><b>~10%</b> of the Kanc's traffic</span></div>
+      <p>The same big views over the Saco valley that people sit in traffic for on the Kancamagus, with three or four pull-offs and almost no cars. This is your scenic drive. It drops you at the east end of the Kanc in Conway; turn left toward Route 16 and you've skipped the whole crowded stretch.</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Bear%20Notch%20Road%20New%20Hampshire&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Bear+Notch+Road+NH+foliage+overlook" target="_blank" rel="noopener">Google Images</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">4</div>
+    <div class="body">
+      <h3>Foss Mountain, Eaton</h3>
+      <div class="facts"><span><b>25 min</b> from Conway</span><span><b>20 min</b> walk up</span><span><b>360°</b> summit, golden hour</span></div>
+      <p>A short walk up through wild blueberry fields that turn deep red in October, to a bare summit looking at the Whites in one direction and lakes in the other. Dirt-road access keeps it quiet. Eaton village below has a white church and covered bridge on a small lake for one more frame on the way out.</p>
+      <p class="when">Peak color: ~Oct 5–12 (mid elevation).</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Foss%20Mountain%20Eaton%20NH&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Foss+Mountain+Eaton+NH+blueberry+fall" target="_blank" rel="noopener">Google Images</a>
+        <a href="https://www.alltrails.com/trail/us/new-hampshire/foss-mountain-trail" target="_blank" rel="noopener">AllTrails</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">5</div>
+    <div class="body">
+      <h3>Sandwich Notch Road &amp; Beede Falls <span class="eyebrow" style="font-family:var(--body)">· alternative</span></h3>
+      <div class="facts"><span><b>2h 15</b> from Back Bay</span><span><b>10 mi</b> dirt road</span><span><b>15 min</b> walk to the falls</span></div>
+      <p>A rough one-lane dirt road through old forest with stone walls and almost no cars. Drive slowly, stop where the light is good, hike the short trail to Beede Falls. It feels like 1890. Good choice if you want a shorter drive and a more intimate, in-the-trees kind of photography instead of big vistas.</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Sandwich%20Notch%20Road%20New%20Hampshire&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Beede+Falls+Sandwich+NH+autumn" target="_blank" rel="noopener">Google Images</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">6</div>
+    <div class="body">
+      <h3>Pitcher Mountain, Stoddard <span class="eyebrow" style="font-family:var(--body)">· alternative</span></h3>
+      <div class="facts"><span><b>1h 50</b> from Back Bay</span><span><b>15 min</b> hike to the fire tower</span><span><b>Later peak</b></span></div>
+      <p>Southwest NH, so the shortest drive and the latest color. A quick hike to a fire tower with views into Vermont and over the Monadnock hills. Pick this one if you end up going Oct 15–25, when the Whites are past peak and the south is just hitting it.</p>
+      <p class="when">Peak color: ~Oct 12–22.</p>
+      <div class="links">
+        <a href="https://www.flickr.com/search/?text=Pitcher%20Mountain%20Stoddard&sort=interestingness-desc" target="_blank" rel="noopener">Photos on Flickr</a>
+        <a href="https://www.google.com/search?tbm=isch&q=Pitcher+Mountain+Stoddard+NH+fire+tower+fall" target="_blank" rel="noopener">Google Images</a>
+        <a href="https://www.alltrails.com/trail/us/new-hampshire/pitcher-mountain-trail" target="_blank" rel="noopener">AllTrails</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<p class="note">Six spots is not one day. Spots 2 and 3 are roads you drive anyway, with pull-offs. The real stops are 1, 4, 5 and 6, and no plan here does more than two of them. Use the tabs above to pick a day.</p>
+</section>
+
+<section class="photo">
+  <div class="eyebrow">Camera notes</div>
+  <ul>
+    <li>Overcast beats sunny for foliage. Colors saturate and you lose harsh contrast.</li>
+    <li>Bring a polarizer. It cuts glare off wet leaves and water, and deepens the sky.</li>
+    <li>Fog over ponds needs a cold, clear, still morning. Check the overnight low; under 40°F is your friend.</li>
+    <li>Underexpose about a third of a stop. Reds blow out before anything else.</li>
+    <li>Shoot the small stuff too: a single maple against spruce, leaves on wet rock, the stone walls on Sandwich Notch Road.</li>
+  </ul>
+  <p class="note">2026 is forecast to run slightly later than usual. Northern NH is turning now through about Oct 8; mid-elevation Whites Oct 5–12; southern NH Oct 12–22. Check a foliage tracker the week before you go.</p>
+</section>
+</div>
+
+<script>
+(function(){
+  var wrap=document.querySelector('.wrap');
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tabs [role=tab]'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  function select(plan){
+    tabs.forEach(function(t){t.setAttribute('aria-selected',String(t.dataset.plan===plan));});
+    panels.forEach(function(p){p.hidden=(p.id!=='panel-'+plan);});
+    wrap.setAttribute('data-plan',plan);
+    try{localStorage.setItem('nh-plan',plan);}catch(e){}
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){select(t.dataset.plan);});});
+  var initial='all';
+  var h=(location.hash||'').replace('#','');
+  if(['A','B','C','D','E','F','G','H','I','all'].indexOf(h)>-1){initial=h;}
+  else{try{var s=localStorage.getItem('nh-plan');if(s&&document.getElementById('panel-'+s))initial=s;}catch(e){}}
+  select(initial);
+})();
+</script>
+
+</body></html>
