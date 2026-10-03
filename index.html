@@ -83,6 +83,7 @@ a{color:var(--spruce)}
 .wrap[data-plan="G"] .pin:not(.p8){opacity:.22}
 .wrap[data-plan="H"] .pin:not(.p5){opacity:.22}
 .wrap[data-plan="I"] .pin:not(.p9){opacity:.22}
+.wrap[data-plan="J"] .pin:not(.p13):not(.p14):not(.p12){opacity:.22}
 .spot .plan{margin-top:6px}
 .pin{transition:opacity .2s}
 @media (prefers-reduced-motion: reduce){.pin{transition:none}}
@@ -142,6 +143,8 @@ a{color:var(--spruce)}
       <path d="M330 620 L230 640"/>                          <!-- Rt 101 to Peterborough -->
       <path d="M360 790 L240 752"/>                          <!-- Rt 2 to Wachusett -->
       <path d="M360 790 L300 748"/>                          <!-- Rt 2 to Concord MA -->
+      <path d="M306 475 L340 480"/>                          <!-- exit 23 / Rt 104 to Meredith -->
+      <path d="M480 560 L440 500"/>                          <!-- Rt 16 / 28 to Wolfeboro -->
     </g>
     <!-- Kancamagus: avoid -->
     <path d="M290 340 L370 352 L468 362" fill="none" stroke="var(--avoid)" stroke-width="4" stroke-dasharray="8 7" stroke-linecap="round"/>
@@ -192,6 +195,10 @@ a{color:var(--spruce)}
       <text x="214" y="644" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Pack Monadnock · Peterborough</text></g>
       <g class="pin p10"><circle cx="240" cy="752" r="12" fill="var(--maple)"/><text x="240" y="756" font-size="11" fill="var(--bg)">E1</text>
       <text x="224" y="756" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="end">Wachusett · Harvard</text></g>
+      <g class="pin p13"><circle cx="340" cy="480" r="12" fill="var(--maple)"/><text x="340" y="484" font-size="11" fill="var(--bg)">J1</text>
+      <text x="356" y="484" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Meredith</text></g>
+      <g class="pin p14"><circle cx="440" cy="500" r="12" fill="var(--maple)"/><text x="440" y="504" font-size="11" fill="var(--bg)">J2</text>
+      <text x="456" y="504" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="start">Wolfeboro</text></g>
       <g class="pin p11"><circle cx="300" cy="748" r="12" fill="var(--maple)"/><text x="300" y="752" font-size="11" fill="var(--bg)">E3</text>
       <text x="300" y="733" font-family="Figtree,system-ui,sans-serif" font-size="12" font-weight="600" fill="currentColor" text-anchor="middle">Walden · Concord</text></g>
     </g>
@@ -203,7 +210,7 @@ a{color:var(--spruce)}
     <span><i class="red"></i>Skip this road</span>
     <span><i class="dot"></i>Photo stop</span>
   </div>
-  <figcaption>Schematic, not to scale. Pick a plan below and the map highlights only that plan's stops. 1–6 are the White Mountain spots; 7–9 and E1–E3 are the shorter days.</figcaption>
+  <figcaption>Schematic, not to scale. Pick a plan below and the map highlights only that plan's stops. 1–6 are the White Mountain spots; 7–9, E1–E3 and J1–J2 are the shorter days.</figcaption>
 </figure>
 
 <div class="tabs" role="tablist" aria-label="Plans">
@@ -217,7 +224,73 @@ a{color:var(--spruce)}
   <button role="tab" id="tab-G" aria-selected="false" aria-controls="panel-G" data-plan="G">G · Red Hill</button>
   <button role="tab" id="tab-H" aria-selected="false" aria-controls="panel-H" data-plan="H">H · Sandwich Notch only</button>
   <button role="tab" id="tab-I" aria-selected="false" aria-controls="panel-I" data-plan="I">I · Newfound Lake</button>
+  <button role="tab" id="tab-J" aria-selected="false" aria-controls="panel-J" data-plan="J">J · Brunch &amp; back</button>
 </div>
+
+<section class="panel" id="panel-J" role="tabpanel" aria-labelledby="tab-J" hidden>
+  <div class="verdict">
+    <h2>Drive out, brunch, shoot for an hour, drive home</h2>
+    <p>No hike. Pick a town with a good breakfast place and one photo stop next to it. Leave 8:30, eat at 10:30, shoot until 1, home by 3. All three are under four hours of driving round trip, listed by how much color you'll see this weekend.</p>
+  </div>
+
+  <article class="spot">
+    <div class="num">J1</div>
+    <div class="body">
+      <h3>Meredith, on Winnipesaukee</h3>
+      <div class="facts"><span><b>1h 50</b> each way</span><span><b>Most color</b> of the three (40–50%)</span><span><b>Lake + town</b></span></div>
+      <p>Breakfast at Sunshine &amp; Pa's (locals' spot, big portions) or George's Diner, then walk down to the Mill Falls boardwalk and the town docks: lake, boats, hills across the water turning. Drive home via Route 25 through Center Harbor for the lakeside pull-offs.</p>
+      <div class="plan">
+        <div><time>8:30</time><span>Leave Back Bay. I-93 to exit 23, Route 104 east into Meredith.</span></div>
+        <div><time>10:20</time><span>Sunshine &amp; Pa's or George's Diner. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Sunshine+and+Pa%27s+Meredith+NH" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>11:30</time><span>Mill Falls Marketplace boardwalk, the falls, then the town docks and Hesky Park for the open-lake view. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Meredith+NH+town+docks+fall+foliage+Winnipesaukee" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>12:45</time><span>Route 25 east to Center Harbor; pull-offs along the lake, then back west and I-93 home. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Center+Harbor+NH+Winnipesaukee+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>15:00</time><span>Back Bay.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Sunshine+and+Pa%27s%2C+Meredith%2C+NH%7CMill+Falls+Marketplace%2C+Meredith%2C+NH%7CCenter+Harbor%2C+NH" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">J2</div>
+    <div class="body">
+      <h3>Wolfeboro</h3>
+      <div class="facts"><span><b>2h</b> each way</span><span><b>Same color</b> as Meredith</span><span><b>Quieter</b>, one 5-min tower walk</span></div>
+      <p>"Oldest summer resort in America," small and pretty. Brunch downtown (Wolfeboro Diner, or Downtown Grille Café), then Cate Park on the waterfront for the Winnipesaukee shots. On the way home, Abenaki Tower in Tuftonboro is a five-minute walk from the road to a wooden tower over the lake, your one "hike."</p>
+      <div class="plan">
+        <div><time>8:30</time><span>Leave Back Bay. I-95 → Spaulding Turnpike (Route 16) → Route 28 north into Wolfeboro.</span></div>
+        <div><time>10:30</time><span>Brunch downtown. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Downtown+Grille+Cafe+Wolfeboro+NH" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>11:45</time><span>Cate Park and the town docks; the bandstand with the lake behind it is the frame. Walk Main Street. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Cate+Park+Wolfeboro+NH+fall+foliage" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>13:00</time><span>Abenaki Tower, Route 109 in Tuftonboro, 15 minutes north. Short walk, climb the tower, lake and Ossipee range. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Abenaki+Tower+Tuftonboro+NH+fall+view" target="_blank" rel="noopener">Photos ↗</a> <a class="pic" href="https://www.google.com/maps/search/?api=1&query=Abenaki+Tower%2C+Tuftonboro%2C+NH" target="_blank" rel="noopener">Map ↗</a></span></div>
+        <div><time>14:00</time><span>Home via Route 28 → 16 → I-95. Back Bay by 4.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Wolfeboro%2C+NH%7CCate+Park%2C+Wolfeboro%2C+NH%7CAbenaki+Tower%2C+Tuftonboro%2C+NH" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+
+  <article class="spot">
+    <div class="num">J3</div>
+    <div class="body">
+      <h3>Peterborough</h3>
+      <div class="facts"><span><b>1h 25</b> each way</span><span><b>Less color</b> this weekend (30–40%)</span><span><b>Shortest</b> drive</span></div>
+      <p>Brunch at Pearl or Nonie's, walk Depot Square and the river, then Dublin Lake ten minutes west for Mount Monadnock reflected in the water. The south turns later, but the Monadnock reflection is a good frame regardless.</p>
+      <div class="plan">
+        <div><time>9:00</time><span>Leave Back Bay. Route 3 → 101 west.</span></div>
+        <div><time>10:30</time><span>Brunch at Pearl or Nonie's in Peterborough. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Nonie%27s+Peterborough+NH" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>11:45</time><span>Depot Square, the Contoocook River walk, the Toadstool bookshop. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Peterborough+NH+Depot+Square+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>12:45</time><span>Dublin Lake on Route 101. Pull-off on the north shore for the Monadnock reflection. <a class="pic" href="https://www.google.com/search?tbm=isch&q=Dublin+Lake+Monadnock+reflection+fall" target="_blank" rel="noopener">Photos ↗</a></span></div>
+        <div><time>13:30</time><span>Home. Back Bay by 3.</span></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://www.google.com/maps/dir/?api=1&origin=Back+Bay%2C+Boston%2C+MA&destination=Back+Bay%2C+Boston%2C+MA&travelmode=driving&waypoints=Peterborough%2C+NH%7CDublin+Lake%2C+Dublin%2C+NH" target="_blank" rel="noopener">Google Maps ↗</a>
+      </div>
+    </div>
+  </article>
+  <p class="note">Breakfast places in lake towns fill by 10 on a sunny October Saturday. Arriving at 10:20 means a short wait at worst; 11 means a long one.</p>
+</section>
 
 <section class="panel" id="panel-F" role="tabpanel" aria-labelledby="tab-F" hidden>
   <div class="verdict">
@@ -569,7 +642,7 @@ a{color:var(--spruce)}
   tabs.forEach(function(t){t.addEventListener('click',function(){select(t.dataset.plan);});});
   var initial='all';
   var h=(location.hash||'').replace('#','');
-  if(['A','B','C','D','E','F','G','H','I','all'].indexOf(h)>-1){initial=h;}
+  if(["A","B","C","D","E","F","G","H","I","J","all"].indexOf(h)>-1){initial=h;}
   else{try{var s=localStorage.getItem('nh-plan');if(s&&document.getElementById('panel-'+s))initial=s;}catch(e){}}
   select(initial);
 })();
